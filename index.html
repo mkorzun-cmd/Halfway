@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Halfway to There — The Curious Collection</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Lora:ital,wght@0,400;0,500;1,400&family=Crimson+Pro:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cream:    #f7f2e8;
+      --parchment:#ede5d0;
+      --fog:      #ddd6c5;
+      --dusk:     #7a8a7c;
+      --forest:   #3d5246;
+      --bark:     #5c4a30;
+      --amber:    #c8973a;
+      --gold:     #e8b84b;
+      --mist:     #b0bdb2;
+      --ink:      #2a2a22;
+      --mid-gray: #888880;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--ink);
+      font-family: 'Lora', Georgia, serif;
+      font-size: 17px;
+      line-height: 1.75;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ─────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(247,242,232,0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--fog);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2.5rem;
+      height: 62px;
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: var(--forest);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'Crimson Pro', serif;
+      font-size: 0.95rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--bark);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--forest); }
+
+    /* ── HERO ─────────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 8rem 0 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 70% at 70% 50%, rgba(200,215,200,0.25) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 50% at 20% 80%, rgba(200,180,120,0.15) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .hero-text {
+      padding: 0 5rem 0 6rem;
+      position: relative;
+      z-index: 1;
+      animation: fadeUp 0.9s ease both;
+    }
+
+    .series-tag {
+      font-family: 'Crimson Pro', serif;
+      font-size: 0.82rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--dusk);
+      margin-bottom: 1.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .series-tag::before {
+      content: '';
+      display: block;
+      width: 32px;
+      height: 1px;
+      background: var(--dusk);
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 5vw, 4.8rem);
+      font-weight: 700;
+      line-height: 1.08;
+      color: var(--forest);
+      margin-bottom: 0.4rem;
+    }
+
+    .hero-subtitle {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+      font-style: italic;
+      font-weight: 400;
+      color: var(--bark);
+      margin-bottom: 2rem;
+    }
+
+    .hero-byline {
+      font-family: 'Crimson Pro', serif;
+      font-size: 1rem;
+      letter-spacing: 0.06em;
+      color: var(--mid-gray);
+      margin-bottom: 1.8rem;
+    }
+
+    .hero-hook {
+      font-size: 1.08rem;
+      color: var(--ink);
+      line-height: 1.85;
+      max-width: 420px;
+      margin-bottom: 2.8rem;
+    }
+
+    .hero-hook em {
+      font-style: italic;
+      color: var(--forest);
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      font-family: 'Crimson Pro', serif;
+      font-size: 0.9rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0.75rem 2rem;
+      border-radius: 2px;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--forest);
+      color: var(--cream);
+    }
+
+    .btn-primary:hover {
+      background: var(--bark);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(61,82,70,0.25);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--forest);
+      border: 1px solid var(--dusk);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--forest);
+      background: rgba(61,82,70,0.06);
+    }
+
+    .hero-image {
+      position: relative;
+      padding: 2rem 5rem 2rem 2rem;
+      animation: fadeUp 1.1s 0.2s ease both;
+    }
+
+    .hero-image img {
+      width: 100%;
+      border-radius: 4px;
+      box-shadow: 0 20px 60px rgba(61,82,70,0.2), 0 4px 12px rgba(0,0,0,0.1);
+      display: block;
+    }
+
+    .hero-image-caption {
+      font-family: 'Crimson Pro', serif;
+      font-style: italic;
+      font-size: 0.88rem;
+      color: var(--mid-gray);
+      margin-top: 1rem;
+      text-align: center;
+    }
+
+    /* ── SECTIONS ─────────────────────────────────────── */
+    section {
+      padding: 6rem 0;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2.5rem;
+    }
+
+    .section-label {
+      font-family: 'Crimson Pro', serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--dusk);
+      margin-bottom: 2.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--fog);
+      max-width: 200px;
+    }
+
+    /* ── PHILOSOPHY ───────────────────────────────────── */
+    #philosophy {
+      background: var(--forest);
+      color: var(--cream);
+      position: relative;
+      overflow: hidden;
+    }
+
+    #philosophy::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 70% at 80% 50%, rgba(120,150,120,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .philosophy-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .blockquote-wrap {
+      position: relative;
+      padding: 2.5rem 2.5rem 2.5rem 3.5rem;
+      border-left: 3px solid var(--gold);
+      background: rgba(255,255,255,0.04);
+    }
+
+    .blockquote-wrap::before {
+      content: '\201C';
+      position: absolute;
+      top: -0.5rem;
+      left: 1.5rem;
+      font-family: 'Playfair Display', serif;
+      font-size: 5rem;
+      color: var(--gold);
+      opacity: 0.4;
+      line-height: 1;
+    }
+
+    blockquote {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.35rem;
+      line-height: 1.65;
+      color: var(--parchment);
+      margin-bottom: 1.2rem;
+    }
+
+    .quote-attribution {
+      font-family: 'Crimson Pro', serif;
+      font-size: 0.88rem;
+      letter-spacing: 0.08em;
+      color: var(--mist);
+    }
+
+    .philosophy-body .section-label {
+      color: var(--mist);
+    }
+
+    .philosophy-body .section-label::after {
+      background: rgba(255,255,255,0.15);
+    }
+
+    .philosophy-body h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--cream);
+      margin-bottom: 1.5rem;
+      line-height: 1.3;
+    }
+
+    .philosophy-body p {
+      color: rgba(247,242,232,0.82);
+      margin-bottom: 1.2rem;
+      font-size: 1.02rem;
+    }
+
+    .philosophy-body strong {
+      color: var(--cream);
+      font-weight: 500;
+    }
+
+    /* ── STORY EXCERPT ─────────────────────────────────── */
+    #story {
+      background: var(--parchment);
+    }
+
+    .story-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .story-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      color: var(--forest);
+      margin-bottom: 0.5rem;
+    }
+
+    .story-header p {
+      font-family: 'Crimson Pro', serif;
+      font-style: italic;
+      color: var(--mid-gray);
+      font-size: 1.05rem;
+    }
+
+    .excerpt-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      border: 1px solid var(--fog);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .excerpt-card {
+      background: var(--cream);
+      padding: 2.5rem 2rem;
+      position: relative;
+      transition: background 0.2s;
+    }
+
+    .excerpt-card:hover {
+      background: white;
+    }
+
+    .card-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--fog);
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+
+    .excerpt-card p {
+      font-size: 0.98rem;
+      line-height: 1.85;
+      color: var(--ink);
+      font-style: italic;
+    }
+
+    .excerpt-card p em {
+      font-style: normal;
+      font-weight: 500;
+      color: var(--forest);
+    }
+
+    .story-cta {
+      text-align: center;
+      margin-top: 3rem;
+    }
+
+    /* ── ILLUSTRATIONS ─────────────────────────────────── */
+    #illustrations {
+      background: var(--cream);
+    }
+
+    .illus-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+      align-items: start;
+    }
+
+    .illus-item {
+      position: relative;
+    }
+
+    .illus-item img {
+      width: 100%;
+      border-radius: 3px;
+      box-shadow: 0 8px 32px rgba(61,82,70,0.15);
+      display: block;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .illus-item:hover img {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(61,82,70,0.22);
+    }
+
+    .illus-caption {
+      font-family: 'Crimson Pro', serif;
+      font-style: italic;
+      font-size: 0.92rem;
+      color: var(--mid-gray);
+      margin-top: 1rem;
+      line-height: 1.6;
+      padding: 0 0.5rem;
+    }
+
+    .illus-caption em {
+      font-style: normal;
+      font-family: 'Lora', serif;
+      font-size: 0.88rem;
+      color: var(--forest);
+      display: block;
+      margin-top: 0.3rem;
+      font-weight: 500;
+    }
+
+    /* ── DISCUSSION ────────────────────────────────────── */
+    #discussion {
+      background: var(--forest);
+      color: var(--cream);
+      position: relative;
+    }
+
+    .discussion-intro {
+      max-width: 620px;
+      margin-bottom: 4rem;
+    }
+
+    .discussion-intro h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      color: var(--cream);
+      margin-bottom: 1rem;
+    }
+
+    .discussion-intro p {
+      color: rgba(247,242,232,0.78);
+      font-size: 1.02rem;
+    }
+
+    .accordion-group {
+      max-width: 780px;
+    }
+
+    .accordion-item {
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .accordion-trigger {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 1.4rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      text-align: left;
+      gap: 1rem;
+    }
+
+    .accordion-trigger-label {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      color: var(--cream);
+      font-weight: 400;
+    }
+
+    .accordion-trigger-age {
+      font-family: 'Crimson Pro', serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      white-space: nowrap;
+    }
+
+    .accordion-icon {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: transform 0.3s, background 0.3s;
+      color: var(--cream);
+      font-size: 1rem;
+      line-height: 1;
+    }
+
+    .accordion-item.open .accordion-icon {
+      transform: rotate(45deg);
+      background: var(--gold);
+      border-color: var(--gold);
+      color: var(--forest);
+    }
+
+    .accordion-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+
+    .accordion-item.open .accordion-body {
+      max-height: 600px;
+    }
+
+    .accordion-body-inner {
+      padding: 0 0 1.8rem 0;
+    }
+
+    .accordion-body-inner ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+    }
+
+    .accordion-body-inner li {
+      font-size: 0.97rem;
+      color: rgba(247,242,232,0.82);
+      padding-left: 1.4rem;
+      position: relative;
+      line-height: 1.7;
+    }
+
+    .accordion-body-inner li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    /* ── CONTACT ───────────────────────────────────────── */
+    #contact {
+      background: var(--parchment);
+      text-align: center;
+    }
+
+    .contact-inner {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .contact-inner h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      color: var(--forest);
+      margin-bottom: 1rem;
+    }
+
+    .contact-inner p {
+      color: var(--mid-gray);
+      font-size: 1.02rem;
+      margin-bottom: 2rem;
+    }
+
+    .contact-email {
+      font-family: 'Crimson Pro', serif;
+      font-size: 1.1rem;
+      color: var(--bark);
+      text-decoration: none;
+      border-bottom: 1px solid var(--amber);
+      padding-bottom: 2px;
+      transition: color 0.2s;
+    }
+
+    .contact-email:hover { color: var(--forest); }
+
+    /* ── FOOTER ────────────────────────────────────────── */
+    footer {
+      background: var(--ink);
+      color: rgba(247,242,232,0.5);
+      text-align: center;
+      padding: 2rem;
+      font-family: 'Crimson Pro', serif;
+      font-size: 0.85rem;
+    }
+
+    footer a {
+      color: var(--gold);
+      text-decoration: none;
+    }
+
+    footer a:hover { color: var(--cream); }
+
+    /* ── PATH DIVIDER ──────────────────────────────────── */
+    .path-divider {
+      text-align: center;
+      padding: 2rem 0;
+      color: var(--dusk);
+    }
+
+    .path-dots {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .path-dots span {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--fog);
+      display: block;
+    }
+
+    .path-dots span:nth-child(3) {
+      background: var(--dusk);
+    }
+
+    .path-dots span:nth-child(5) {
+      background: var(--forest);
+    }
+
+    /* ── ABOUT SECTION ─────────────────────────────────── */
+    .about-strip {
+      background: var(--cream);
+      padding: 4rem 0;
+      border-top: 1px solid var(--fog);
+      border-bottom: 1px solid var(--fog);
+    }
+
+    .about-inner {
+      display: flex;
+      align-items: center;
+      gap: 3rem;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 2.5rem;
+    }
+
+    .about-inner p {
+      font-size: 1rem;
+      color: var(--mid-gray);
+    }
+
+    .about-inner strong {
+      color: var(--forest);
+      font-weight: 500;
+    }
+
+    /* ── ANIMATIONS ────────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; padding-top: 6rem; }
+      .hero-text { padding: 0 2rem; }
+      .hero-image { padding: 0 2rem 2rem; }
+      .philosophy-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .illus-grid { grid-template-columns: 1fr; }
+      .excerpt-cards { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 600px) {
+      nav { padding: 0 1.2rem; }
+      .nav-links { gap: 1.2rem; }
+      .nav-links a { font-size: 0.8rem; }
+      .container { padding: 0 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ─────────────────────────────────────────────── -->
+<nav>
+  <a class="nav-logo" href="#">Halfway to There</a>
+  <ul class="nav-links">
+    <li><a href="#philosophy">Philosophy</a></li>
+    <li><a href="#story">The Story</a></li>
+    <li><a href="#illustrations">Illustrations</a></li>
+    <li><a href="#discussion">Discussion</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="https://mkorzun-cmd.github.io/Curious/" target="_blank">The Curious Collection</a></li>
+  </ul>
+</nav>
+
+<!-- ── HERO ─────────────────────────────────────────────── -->
+<header class="hero">
+  <div class="hero-text">
+    <div class="series-tag">The Curious Collection</div>
+    <h1 class="hero-title">Halfway<br>to There</h1>
+    <div class="hero-subtitle">by Melissa Korzun</div>
+    <div class="hero-byline">A picture book · Ages 4–8 · And their wondering adults</div>
+    <p class="hero-hook">
+      A boy with a map. A dog with a nose. And a path that goes
+      <em>on, and on, and on some more</em> — straight into
+      the most disorienting place of all: The Middle.
+    </p>
+    <div class="btn-group">
+      <a href="#story" class="btn btn-primary">Read an Excerpt</a>
+      <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+    </div>
+  </div>
+  <div class="hero-image">
+    <img src="Halfway_to_There_Scene1.png" alt="Boy and dog at the start of The Way" />
+    <p class="hero-image-caption">Boy had a map. Dog had a nose. That was enough.</p>
+  </div>
+</header>
+
+<!-- ── PATH DIVIDER ─────────────────────────────────────── -->
+<div class="path-divider">
+  <div class="path-dots">
+    <span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span>
+  </div>
+</div>
+
+<!-- ── PHILOSOPHY ────────────────────────────────────────── -->
+<section id="philosophy">
+  <div class="container">
+    <div class="philosophy-grid">
+      <div class="blockquote-wrap">
+        <blockquote>
+          "You're finally here and halfway there,
+          halfway from halfways everywhere.
+          Except from where you've halfway come,
+          from there, you're squarely halfway done."
+        </blockquote>
+        <p class="quote-attribution">— The Middle Man</p>
+      </div>
+      <div class="philosophy-body">
+        <div class="section-label">The Idea Behind the Book</div>
+        <h2>What does it mean to be stuck in the middle?</h2>
+        <p>
+          Zeno of Elea posed a paradox that still quietly haunts us: to reach any destination,
+          you must first reach the halfway point. Then the halfway point of <em>that</em>. Then again.
+          <strong>In theory, you can never arrive — there is always a middle ahead.</strong>
+        </p>
+        <p>
+          But Zeno's puzzle is more than a math problem. It's the experience of being
+          in the middle of something hard — a task, a year, a grief, a growth — and
+          wondering whether forward is even possible from here.
+        </p>
+        <p>
+          <em>Halfway to There</em> lives inside that place. The Middle Man has been there
+          so long he's forgotten what forward feels like. Boy and Dog haven't forgotten yet.
+          <strong>What saves them is not a map. It's the faint smell of something familiar,
+          and a hand reaching back.</strong>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── STORY EXCERPT ─────────────────────────────────────── -->
+<section id="story">
+  <div class="container">
+    <div class="story-header">
+      <div class="section-label" style="justify-content:center;">
+        <span>From the Pages</span>
+      </div>
+      <h2>A Taste of the Journey</h2>
+      <p>Three moments from The Way — the beginning, the middle, and the finding.</p>
+    </div>
+
+    <div class="excerpt-cards">
+      <div class="excerpt-card">
+        <div class="card-number">I</div>
+        <p>
+          At the base of the tree standing tall on a log are a Boy named Boy
+          and a Dog named Dog. <em>Boy lifted his foot. Dog lifted his nose.
+          And together, they took the very first step onto The Way.</em>
+        </p>
+      </div>
+      <div class="excerpt-card">
+        <div class="card-number">II</div>
+        <p>
+          Everything in The Middle was almost. Almost a color. Almost a sound.
+          Almost a smell that Dog couldn't quite catch, no matter how hard he tried.
+          <em>A sign appeared that read: YOU ARE SOMEWHERE.</em>
+        </p>
+      </div>
+      <div class="excerpt-card">
+        <div class="card-number">III</div>
+        <p>
+          Boy took a step forward on The Way, then reached back and offered his hand
+          to the Middle Man. <em>For the first time, his middlesized hand looked large
+          compared to the boy's small fingers.</em>
+        </p>
+      </div>
+    </div>
+
+    <div class="story-cta">
+      <p style="font-family:'Crimson Pro',serif; font-style:italic; color:var(--mid-gray); margin-bottom:1.5rem; font-size:1.05rem;">
+        The Way stretched out before them. The End.
+      </p>
+      <a href="#contact" class="btn btn-primary">Request the Full Manuscript</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── ILLUSTRATIONS ──────────────────────────────────────── -->
+<section id="illustrations">
+  <div class="container">
+    <div class="section-label">Inside the Book</div>
+    <div class="illus-grid">
+      <div class="illus-item">
+        <img src="Halfway_to_There_Scene1.png" alt="Boy and Dog at the start of The Way, standing on a log before a tree with a sign reading This is The Way" />
+        <p class="illus-caption">
+          "At the start of the path there are words on a tree — 'This is The Way,' the simple sign reads."
+          <em>The beginning of every journey: a sign, a map, and a nose.</em>
+        </p>
+      </div>
+      <div class="illus-item">
+        <img src="Halfway_to_There_Scene2.png" alt="Boy and Dog on The Way, the butterfly with upside-down wings visible before them" />
+        <p class="illus-caption">
+          "Dog caught the faint smell of the butterfly with upside down wings and whiskers that circled in halo like rings."
+          <em>The thing that pulls you out of the middle is rarely what you expect.</em>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── DISCUSSION ─────────────────────────────────────────── -->
+<section id="discussion">
+  <div class="container">
+    <div class="discussion-intro">
+      <div class="section-label" style="color:var(--mist);">
+        <span>For Curious Minds</span>
+      </div>
+      <h2>A Guide for Every Age</h2>
+      <p>
+        Big questions belong to everyone. Here are some ways to open the conversation —
+        whether you're four or forty, just starting out or very much in the middle.
+      </p>
+    </div>
+
+    <div class="accordion-group" id="accordion">
+
+      <div class="accordion-item">
+        <button class="accordion-trigger" onclick="toggleAccordion(this)">
+          <span class="accordion-trigger-age">Ages 4–6</span>
+          <span class="accordion-trigger-label">For parents reading aloud</span>
+          <span class="accordion-icon">+</span>
+        </button>
+        <div class="accordion-body">
+          <div class="accordion-body-inner">
+            <ul>
+              <li>Boy and Dog are trying to get to a place called There. Have you ever been on the way somewhere that felt like it was taking forever? How did it feel?</li>
+              <li>The Middle Man has been stuck in the middle for a very long time. What do you think he did all day while he was waiting?</li>
+              <li>Dog smelled the butterfly and it helped them keep going. What is something small that makes you feel better when something is hard?</li>
+              <li>Boy reached back and offered his hand to the Middle Man. Why do you think he did that?</li>
+              <li>The story ends with "NEARLY THERE." Do you think they made it all the way to There? What do you imagine There looks like?</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-trigger" onclick="toggleAccordion(this)">
+          <span class="accordion-trigger-age">Ages 6–8</span>
+          <span class="accordion-trigger-label">For classrooms and family conversations</span>
+          <span class="accordion-icon">+</span>
+        </button>
+        <div class="accordion-body">
+          <div class="accordion-body-inner">
+            <ul>
+              <li>Boy had a map and Dog had a nose. Do you think the map or the nose was more useful? What does that say about different ways of knowing things?</li>
+              <li>The signs along The Way get stranger and stranger. What do you think they mean? Did you ever feel like things didn't make sense the farther you went?</li>
+              <li>The Middle Man says "staying in the middle isn't so bad." Do you think he really believed that? What clues tell you how he actually felt?</li>
+              <li>Why do you think Boy reached back for the Middle Man instead of just leaving him behind?</li>
+              <li>Have you ever been in the middle of something — a hard project, a difficult year — and thought about giving up? What kept you going?</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-trigger" onclick="toggleAccordion(this)">
+          <span class="accordion-trigger-age">Ages 8–12</span>
+          <span class="accordion-trigger-label">Going deeper</span>
+          <span class="accordion-icon">+</span>
+        </button>
+        <div class="accordion-body">
+          <div class="accordion-body-inner">
+            <ul>
+              <li>The Middle Man keeps saying the same rhyme every time Boy asks "Are you There yet?" Why do you think he gives the same answer no matter what? What is he really saying?</li>
+              <li>In The Middle, "everything was almost" — almost a color, almost a sound. Have you ever been in a place or time that felt like that? What got you out?</li>
+              <li>The Middle Man says he started as a boy with a dog, just like Boy. What do you think changed for him? What didn't he have that Boy has?</li>
+              <li>Boy blinks at the Middle Man — and that simple act changes something. Why would being truly seen matter so much to someone who has been stuck for a very long time?</li>
+              <li>The story never tells us what There is. Do you think it matters what There is, or does only the journey matter? Can both be true?</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-trigger" onclick="toggleAccordion(this)">
+          <span class="accordion-trigger-age">Teenagers</span>
+          <span class="accordion-trigger-label">For high school and book clubs</span>
+          <span class="accordion-icon">+</span>
+        </button>
+        <div class="accordion-body">
+          <div class="accordion-body-inner">
+            <ul>
+              <li>Zeno's Paradox argues that to reach any destination, you must first reach the halfway point — infinitely. How does this story engage with that idea, and where does it depart from it?</li>
+              <li>The Middle Man is a cautionary figure who represents what happens when someone lets the middle become permanent. What choices do you think brought him there? What choices keep us moving?</li>
+              <li>Boy puts away his map before the final stretch. What does that gesture mean? Is abandoning a plan a sign of failure, maturity, or something else?</li>
+              <li>"Almost wanting to stay and almost wanting to leave. Both ready and not." When have you felt that exact tension? What did you do?</li>
+              <li>The butterfly with upside-down wings appears at the beginning and reappears as the thing that saves them. What does it represent? Why does Dog notice it when Boy doesn't?</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-trigger" onclick="toggleAccordion(this)">
+          <span class="accordion-trigger-age">Adults</span>
+          <span class="accordion-trigger-label">For book clubs and personal reflection</span>
+          <span class="accordion-icon">+</span>
+        </button>
+        <div class="accordion-body">
+          <div class="accordion-body-inner">
+            <ul>
+              <li>The Middle Man started as a boy with a dog and a plan, just like Boy. What do you think made the difference between their outcomes? What does it take to keep going when the cost of staying becomes familiar?</li>
+              <li>The story suggests that what pulls you out of the middle is sometimes not logic or willpower, but something small and sensory — a faint familiar smell. When has something unexpected broken through for you?</li>
+              <li>Boy reaches back for the Middle Man without being asked. Think about a time someone reached back for you. Or a time you didn't reach back when you could have.</li>
+              <li>"Plans have a way of getting lost, and getting to There wasn't worth all the cost." How do you distinguish between healthy flexibility and the kind of giving up that leaves you stuck?</li>
+              <li>The book ends with "NEARLY THERE." Not arrival — nearness. What does it mean to spend a life in pursuit of something you never quite reach? Is that a tragedy, or something else entirely?</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT ────────────────────────────────────────────── -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-inner">
+      <div class="section-label" style="justify-content:center;"><span>For Publishers &amp; Inquiries</span></div>
+      <h2>Get in Touch</h2>
+      <p>
+        <em>Halfway to There</em> is a completed picture book manuscript for ages 4–8.
+        It is part of <a href="https://mkorzun-cmd.github.io/Curious/" style="color:var(--forest); text-decoration:none; border-bottom: 1px solid var(--amber);">The Curious Collection</a> —
+        a planned series that hides a big philosophical question inside a small, patient story.
+      </p>
+      <a class="contact-email" href="mailto:mkorzun@gmail.com">mkorzun@gmail.com</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ─────────────────────────────────────────────── -->
+<footer>
+  <p>
+    © 2026 Melissa Korzun. All rights reserved. &nbsp;·&nbsp;
+    <a href="https://mkorzun-cmd.github.io/Curious/">The Curious Collection</a> &nbsp;·&nbsp;
+    <a href="https://mkorzun-cmd.github.io/Billy/">Billy and his Beloved Boat</a> &nbsp;·&nbsp;
+    <a href="https://mkorzun-cmd.github.io/Fluffleboots/">Fluffleboots</a>
+  </p>
+</footer>
+
+<script>
+  function toggleAccordion(btn) {
+    const item = btn.closest('.accordion-item');
+    const isOpen = item.classList.contains('open');
+    // close all
+    document.querySelectorAll('.accordion-item.open').forEach(el => el.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+</script>
+
+</body>
+</html>
